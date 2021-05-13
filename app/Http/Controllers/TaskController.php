@@ -24,8 +24,18 @@ class TaskController extends Controller
             'updated_at' => Carbon::now()->toDateTimeString()
         ]);
 
-        return response()->json([
-            'success' => "Nouvelle tache enregistrée !"
-        ], 201);
+        return response()->json(['success' => "Nouvelle tache enregistrée !"], 201);
+    }
+
+    public function delete(int $id)
+    {
+        $task = Task::where('id', $id)->where('user_id', Auth::id())->delete();
+
+        if(!$task)
+        {
+            return response()->json(['error' => "La tache n'existe pas !"], 404);
+        }
+
+        return response()->json(['success' => "La tache a bien été effacée !"], 200);
     }
 }
