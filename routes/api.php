@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\TaskController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -19,3 +20,7 @@ Route::post('auth/login', [AuthController::class, 'login'])->name('login');
 Route::post('auth/signin', [AuthController::class, 'signin'])->name('signin');
 Route::middleware('auth:sanctum')->post('auth/logout', [AuthController::class, 'logout'])->name('logout');
 Route::middleware('auth:sanctum')->post('auth/me', [AuthController::class, 'me'])->name('me');
+
+//Tasks routes
+Route::middleware('auth:sanctum')->get('tasks', [TaskController::class, 'tasks'])->name('tasks');
+Route::middleware('auth:sanctum')->post('tasks', [TaskController::class, 'add'])->name('addTasks');
