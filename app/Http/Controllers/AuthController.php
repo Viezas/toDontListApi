@@ -7,6 +7,7 @@ use App\Http\Requests\AuthSigninRequest;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
+use Illuminate\Http\Request;
 
 class AuthController extends Controller
 {
@@ -26,7 +27,7 @@ class AuthController extends Controller
             'token' => $token,
             'name' => $user->name,
             'email' => $user->email
-        ]);
+        ], 200);
     }
 
     //SIGNIN route
@@ -50,6 +51,13 @@ class AuthController extends Controller
             'token' => $token,
             'name' => $user->name,
             'email' => $user->email
-        ]);
+        ], 200);
+    }
+
+    //LOGOUT route
+    public function logout(Request $request)
+    {
+        $request->user()->currentAccessToken()->delete();
+        return response()->json(['success' => "Vous avez été deconnecté !"], 204);
     }
 }

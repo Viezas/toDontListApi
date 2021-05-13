@@ -1,7 +1,6 @@
 <?php
 
 use App\Http\Controllers\AuthController;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -15,5 +14,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+//Auth routes
 Route::post('/auth/login', [AuthController::class, 'login'])->name('login');
 Route::post('/auth/signin', [AuthController::class, 'signin'])->name('signin');
+Route::middleware('auth:sanctum')->post('/auth/logout', [AuthController::class, 'logout'])->name('logout');
