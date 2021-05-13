@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\AddTaskRequest;
+use App\Http\Requests\UpdateTaskRequest;
 use App\Models\Task;
 use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
@@ -41,6 +42,18 @@ class TaskController extends Controller
         ]);
 
         return response()->json(['success' => "Nouvelle tache enregistrée !"], 201);
+    }
+
+    public function update(UpdateTaskRequest $request, int $id)
+    {
+        $task = Task::where('id', $id)->where('user_id', Auth::id())->update(['body' => $request->body, 'done' => $request->done]);
+
+        if(!$task)
+        {
+            return response()->json(['error' => "La tache n'existe pas !"], 404);
+        }
+
+        return response()->json(['success' => "La tache a bien été modifée !"], 200);
     }
 
     public function delete(int $id)
