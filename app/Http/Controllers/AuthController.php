@@ -8,6 +8,7 @@ use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class AuthController extends Controller
 {
@@ -59,5 +60,18 @@ class AuthController extends Controller
     {
         $request->user()->currentAccessToken()->delete();
         return response()->json(['success' => "Vous avez été deconnecté !"], 204);
+    }
+    
+    //ME route
+    public function me()
+    {
+        $user = User::where('email', Auth::user()->email)->get();
+        return response()->json([
+            'id' => $user[0]->id,
+            'name' => $user[0]->name,
+            'email' => $user[0]->email,
+            'created_at' => $user[0]->created_at,
+            'updated_at' => $user[0]->updated_at
+        ], 200);
     }
 }
