@@ -14,6 +14,22 @@ class TaskController extends Controller
         return response()->json(Auth::user()->tasks()->latest()->get(), 201);
     }
 
+    public function task(int $id)
+    {
+        $task = Task::where('id', $id)->where('user_id', Auth::id())->get();
+
+        if(!$task)
+        {
+            return response()->json(["error" => "La tache n'existe pas !"], 404);
+        }
+        return response()->json([
+            'created_at' => $task[0]->created_at,
+            'updated_at' => $task[0]->updated_at,
+            'body' => $task[0]->body,
+            'done' => $task[0]->done,
+        ], 200);
+    }
+
     public function add(AddTaskRequest $request)
     {
         Task::create([

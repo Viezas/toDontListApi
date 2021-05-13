@@ -23,5 +23,6 @@ Route::middleware('auth:sanctum')->post('auth/me', [AuthController::class, 'me']
 
 //Tasks routes
 Route::middleware('auth:sanctum')->get('tasks', [TaskController::class, 'tasks'])->name('tasks');
+Route::middleware('auth:sanctum')->get('tasks/{id}', [TaskController::class, 'task'])->name('task');
 Route::middleware('auth:sanctum')->post('tasks', [TaskController::class, 'add'])->name('addTasks');
 Route::middleware('auth:sanctum')->delete('tasks/{id}', [TaskController::class, 'delete'])->name('deleteTasks');
