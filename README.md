@@ -1,4 +1,4 @@
-Routes :
+Routes :<br>
 [DELETE] /api/tasks/{id} : Supprimer la tache liée à l'id<br>
 [GET] /api/tasks/1 : Afficher la tache liée à l'id<br>
 [GET] /api/tasks : Affiche toute les taches<br>
